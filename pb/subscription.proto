@@ -29,6 +29,7 @@ message  SubscriptionReq{
    OptionType optionType  = 2;
    string UserID = 3;
    int32 ProductID = 4;
+   bool NeedFeedback = 5;
 }
 
 enum RetCode{
