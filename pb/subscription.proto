@@ -1,0 +1,41 @@
+syntax = "proto3";
+ 
+option go_package = ".";
+ 
+package pb;
+ 
+// 定义service
+service SubscriptionService {
+  rpc Subscription (SubscriptionReq) returns (SubscriptionRsp) {}
+}
+
+enum OptionType {
+  UNKNOWN = 0; // 未知
+  SUBSCRIBE = 1; // 订阅
+  CANCLE = 2; // 取消
+}
+
+enum NeedFeedback {
+  DONOTFEEDBACK = 0; // 不需要发送反馈消息
+  DOFEEDBACK = 1; // 需要发送反馈消息
+}
+
+message Header{
+  string TraceID = 1;
+}
+
+message  SubscriptionReq{
+   Header head = 1;
+   OptionType optionType  = 2;
+   string UserID = 3;
+   int32 ProductID = 4;
+}
+
+enum RetCode{
+  SUCCESS = 0; //成功，只要消息成功写入了MQ，就算成功
+  ERROR = -1;  //失败
+}
+message SubscriptionRsp{
+   RetCode Code = 1;
+   string Msg = 2;
+}
